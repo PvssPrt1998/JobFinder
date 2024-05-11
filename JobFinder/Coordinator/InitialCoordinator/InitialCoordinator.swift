@@ -9,11 +9,14 @@ import SwiftUI
 
 class InitialCoordinator: Coordinator {
     @ViewBuilder func build(screen: any Page) -> some View {
-        let a = screen as? InitialPage
-        if a == nil {Text("")} else {
-            switch a! {
-                case .mainScreen: MainView()
-            }
+        
+        switch pageAsInitialPage(screen: screen) {
+            case .mainScreen: MainView()
+            default: Text("")
         }
+    }
+    
+    func pageAsInitialPage(screen: any Page) -> InitialPage? {
+        screen as? InitialPage
     }
 }
