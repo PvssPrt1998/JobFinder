@@ -8,8 +8,59 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @EnvironmentObject var viewModel: VacanciesViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            TabView {
+                EmptyScreenForTabView()//VacanciesView()
+                    .tabItem {
+                        VStack {
+                            Image("SearchIcon")
+                                .foregroundStyle(.orange)
+                            Text("Поиск")
+                        }
+                    }
+                    .tag(0)
+                EmptyScreenForTabView()//FavouriteView()
+                    .tabItem {
+                        VStack {
+                            Image("HeartIcon")
+                            Text("Избранное")
+                        }
+                    }
+                    .tag(1)
+                EmptyScreenForTabView()//ResponsesView()
+                    .tabItem {
+                        VStack {
+                            Image("ResponsesIcon")
+                            Text("Отклики")
+                        }
+                    }
+                    .tag(2)
+                EmptyScreenForTabView()//MessagesView()
+                    .tabItem {
+                        VStack {
+                            Image("MessagesIcon")
+                            Text("Сообщения")
+                        }
+                    }
+                    .tag(3)
+                EmptyScreenForTabView()//ProfileView()
+                    .tabItem {
+                        VStack {
+                            Image("ProfileIcon")
+                            Text("Профиль")
+                        }
+                    }
+                    .tag(4)
+            }
+            if !viewModel.authenticated {
+                SignInView()
+                    .padding(.horizontal, 16)
+            }
+        }
     }
 }
 

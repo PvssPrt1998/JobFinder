@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-struct SignInTextFieldPlaceholderView: View {
+struct EmailTextFieldPlaceholderView: View {
     var body: some View {
-        PlaceholderView(image: Image("ResponsesIcon"), text: "Электронная почта или телефон")
+        PlaceholderView(
+            image: Image("ResponsesIcon"),
+            text: "Электронная почта или телефон"
+        )
     }
 }
 
 #Preview {
-    SignInTextFieldPlaceholderView()
+    EmailTextFieldPlaceholderView()
 }

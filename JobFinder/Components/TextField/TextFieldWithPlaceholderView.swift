@@ -7,26 +7,30 @@
 
 import SwiftUI
 
-struct TextFieldWithPlaceholderView: View {
+struct TextFieldWithPlaceholderView<T: View>: View {
     
     @State var text = ""
+    @FocusState var fieldFocused: Bool
     
     var height: CGFloat
+    var placeholderView: T
     
     var body: some View {
         ZStack {
-            if text.isEmpty {
-                SignInTextFieldPlaceholderView()
-            }
             TextField("", text: $text)
                 .font(.system(size: 14))
                 .lineSpacing(12)
+                .focused($fieldFocused)
                 .frame(height: 28)
+                .background(content: {
+                    if !fieldFocused {
+                        placeholderView
+                    }
+                })
             if !text.isEmpty {
                 HStack {
                     TextFieldRightSideClearButton(text: $text)
                 }
-
             }
         }
         .padding(.horizontal, 8)
@@ -39,5 +43,6 @@ struct TextFieldWithPlaceholderView: View {
 }
 
 #Preview {
-    TextFieldWithPlaceholderView(height: 40)
+    TextFieldWithPlaceholderView(height: 40,
+                                 placeholderView: EmailTextFieldPlaceholderView())
 }

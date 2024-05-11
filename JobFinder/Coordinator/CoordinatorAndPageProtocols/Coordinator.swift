@@ -7,15 +7,12 @@
 
 import SwiftUI
 
-protocol Page: Identifiable {
-    var id: String { get }
-}
-
-protocol Coordinator {
-    associatedtype T: Page
+protocol Coordinator: ObservableObject {
+    
+    //associatedtype E: RawRepresentable where E.RawValue == String
     associatedtype V: View
     
-    func build(screen: T) -> V
+    func build(screen: any Page) -> V
 }
 
 //class Coordinator<T: Identifiable>: ObservableObject {

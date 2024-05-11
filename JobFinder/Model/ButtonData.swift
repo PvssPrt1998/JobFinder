@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class ButtonData: Codable {
+    let text: String
+
+    init(text: String) {
+        self.text = text
+    }
+}

@@ -9,7 +9,13 @@ import SwiftUI
 
 struct FilterButton: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image("FilterIcon")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 16, height: 16)
+            .padding(12)
+            .background(Color.textFieldColor)
+            .clipShape(.rect(cornerRadius: 10))
     }
 }
 

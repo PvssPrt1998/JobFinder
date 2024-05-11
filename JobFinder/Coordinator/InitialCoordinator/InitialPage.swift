@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum InitialPage: String, Page {
+    case mainScreen
+}

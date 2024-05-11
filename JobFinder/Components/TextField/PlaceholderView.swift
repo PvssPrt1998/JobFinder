@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct PlaceholderView: View {
+    
+    let image: Image
+    let text: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            image.resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 19.2)
+            Text(text)
+                .font(.system(size: 14))
+                .lineLimit(1)
+                .foregroundStyle(.gray)
+            Spacer()
+        }
     }
 }
 
 #Preview {
-    PlaceholderView()
+    PlaceholderView(image: Image("ResponsesIcon"), text: "Электронная почта или телефон")
 }

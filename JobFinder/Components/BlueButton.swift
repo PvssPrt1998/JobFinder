@@ -11,15 +11,18 @@ struct BlueButton: View {
     
     var title: String
     var fontSize: CGFloat
+    var fontWeight: Font.Weight
     var height: CGFloat
     
     var body: some View {
         HStack {
             Spacer()
             Button {
+                
             } label: {
                 Text(title)
                     .font(.system(size: fontSize))
+                    .fontWeight(fontWeight)
                     .tint(.white)
             }
             Spacer()
@@ -27,6 +30,7 @@ struct BlueButton: View {
         .frame(height: height)
         .background(Color.blueButtonColor)
         .clipShape(.rect(cornerRadius: 8))
+        .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
     }
 }
 
@@ -34,6 +38,7 @@ struct BlueButton: View {
     BlueButton(
         title: "Продолжить",
         fontSize: 14,
+        fontWeight: .regular,
         height: 40
     )
 }

@@ -12,4 +12,6 @@ enum AssetsTitles: String {
     case PointerIcon
     case NoteIcon
     case HeartFilledIcon
+    case CheckIcon
+    case CaseIcon
 }

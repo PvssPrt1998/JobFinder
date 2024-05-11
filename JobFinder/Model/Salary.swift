@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class Salary: Codable {
+    let full: String
+    let short: String?
+
+    init(full: String, short: String?) {
+        self.full = full
+        self.short = short
+    }
+}

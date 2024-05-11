@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+enum MainViewPages: String, Page {
+    case signInScreen
+    case vacanciesScreen
+    case favouriteScreen
+    case messagesScreen
+    case responsesScreen
+    case profileScreen
+    case emptyScreen
+}

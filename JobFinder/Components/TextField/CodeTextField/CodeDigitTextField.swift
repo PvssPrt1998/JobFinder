@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct CodeDigitTextField: View {
+    
+    @State var digit: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TextField("", text: $digit)
+            .multilineTextAlignment(.center)
+            .frame(width: 20, height: 20)
+            .padding(28)
+            .background(Color.secondaryBackgroundColor)
+            .clipShape(.rect(cornerRadius: 8))
     }
 }
 

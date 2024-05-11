@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class Model: Codable {
+    let offers: [Offer]
+    let vacancies: [Vacancy]
+
+    init(offers: [Offer], vacancies: [Vacancy]) {
+        self.offers = offers
+        self.vacancies = vacancies
+    }
+}

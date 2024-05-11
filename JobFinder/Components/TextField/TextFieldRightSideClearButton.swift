@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct TextFieldRightSideClearButton: View {
+    
+    @Binding var text: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Spacer()
+            Button {
+               text = ""
+            } label: {
+                Image(systemName: "xmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 13, height: 13)
+                    .padding(7.5)
+                    .foregroundStyle(Color.textFieldElementsColor)
+            }
+        }
     }
 }
 
-#Preview {
-    TextFieldRightSideClearButton()
+struct TextFieldRightSideClearButton_Preview: PreviewProvider {
+    
+    @State static var text = ""
+    
+    static var previews: some View {
+        TextFieldRightSideClearButton(text: $text)
+    }
 }

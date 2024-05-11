@@ -8,17 +8,58 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    var data = VacanciesViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            VacanciesView()
+                .tabItem {
+                    VStack {
+                        Image("SearchIcon")
+                            .foregroundStyle(.orange)
+                        Text("Поиск")
+                    }
+                }
+                .tag(0)
+            FavouriteView()
+                .tabItem {
+                    VStack {
+                        Image("HeartIcon")
+                        Text("Избранное")
+                    }
+                }
+                .tag(1)
+            ResponsesView()
+                .tabItem {
+                    VStack {
+                        Image("ResponsesIcon")
+                        Text("Отклики")
+                    }
+                }
+                .tag(2)
+            MessagesView()
+                .tabItem {
+                    VStack {
+                        Image("MessagesIcon")
+                        Text("Сообщения")
+                    }
+                }
+                .tag(3)
+            ProfileView()
+                .tabItem {
+                    VStack {
+                        Image("ProfileIcon")
+                        Text("Профиль")
+                    }
+                }
+                .tag(4)
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
 }
+
+

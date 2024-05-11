@@ -7,12 +7,29 @@
 
 import SwiftUI
 
-struct CoordinatorView: View {
+struct CoordinatorView<C: Coordinator>: View {
+    
+    @StateObject var coordinator: C
+    
+    @EnvironmentObject var viewModel: VacanciesViewModel
+    var authenticated = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+//        NavigationStack(path: $coordinator.path) {
+//                coordinator.build(page: .signInScreen)
+//                    .navigationDestination(for: Page.self) { page in
+//                        coordinator.build(page: page)
+//                    }
+//            }
+//        .environmentObject(coordinator)
+        
+        coordinator.build(screen: InitialPage.mainScreen)
     }
 }
 
-#Preview {
-    CoordinatorView()
+struct CoordinatorView_Previews: PreviewProvider {
+    static var previews: some View {
+        CoordinatorView(coordinator: InitialCoordinator())
+            .environmentObject(VacanciesViewModel())
+    }
 }

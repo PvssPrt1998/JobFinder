@@ -11,7 +11,10 @@ import SwiftUI
 struct JobFinderApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CoordinatorView(coordinator: InitialCoordinator())
+                .preferredColorScheme(.dark)
+                .environmentObject(VacanciesViewModel())
+                
         }
     }
 }
