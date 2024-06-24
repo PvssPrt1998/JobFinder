@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct SearchBarView: View {
+    
+    @State var text = ""
+    
     var body: some View {
         HStack(spacing: 8) {
             TextFieldWithPlaceholderView(
+                text: $text,
                 height: 40,
                 placeholderView: SearchTextFieldPlaceholderView()
             )

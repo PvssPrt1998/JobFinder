@@ -26,10 +26,12 @@ struct SignInCodeConfirmView: View {
                 Spacer()
             }
             CodeTextField()
-            BlueButton(title: "Подтвердить",
-                       fontSize: 16,
-                       fontWeight: .semibold,
-                       height: 48
+            BlueButton(
+                action: {},
+                title: "Подтвердить",
+                fontSize: 16,
+                fontWeight: .semibold,
+                height: 48
             )
         }
         .padding(.horizontal, 14)
