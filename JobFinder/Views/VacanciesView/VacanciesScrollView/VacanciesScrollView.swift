@@ -22,7 +22,7 @@ struct VacanciesScrollView: View {
                             viewModel.cardTapAction(vacancy: vacancy)
                         }
                     }
-                }
+                }.padding(.horizontal, 16)
             }
             if !viewModel.detailedMode {
                 BlueButton(action: viewModel.buttonAction,

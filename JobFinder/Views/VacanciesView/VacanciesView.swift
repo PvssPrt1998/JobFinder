@@ -36,7 +36,6 @@ struct VacanciesView: View {
                 .padding(.bottom, 6)
             }
             VacanciesScrollView(viewModel: viewModel.vacanciesScrollViewModel)
-                .padding(.horizontal, 16)
         }
     }
 }
