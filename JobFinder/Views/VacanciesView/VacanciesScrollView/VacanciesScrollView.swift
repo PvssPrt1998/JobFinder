@@ -31,6 +31,7 @@ struct VacanciesScrollView: View {
                            fontWeight: .semibold,
                            height: 48,
                            disabled: false)
+                .padding(.horizontal, 16)
             }
         }
     }
