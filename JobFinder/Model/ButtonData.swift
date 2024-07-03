@@ -7,10 +7,6 @@
 
 import Foundation
 
-class ButtonData: Codable {
+struct ButtonData: Codable {
     let text: String
-
-    init(text: String) {
-        self.text = text
-    }
 }

@@ -11,6 +11,8 @@ struct GreenButton: View {
     var title: String
     var fontSize: CGFloat
     var height: CGFloat
+    var cornerRadius: CGFloat = 50
+    var fontWeight: Font.Weight = .regular
     
     var body: some View {
         HStack {
@@ -20,7 +22,7 @@ struct GreenButton: View {
             } label: {
                 Text(title)
                     .font(.system(size: fontSize))
-                    .fontWeight(.regular)
+                    .fontWeight(fontWeight)
                     .tint(.white)
                     .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
             }
@@ -28,7 +30,7 @@ struct GreenButton: View {
         }
         .frame(height: height)
         .background(Color.greenButtonColor)
-        .clipShape(.rect(cornerRadius: 50))
+        .clipShape(.rect(cornerRadius: cornerRadius))
         .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
     }
 }

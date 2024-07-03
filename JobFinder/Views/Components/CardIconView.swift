@@ -7,22 +7,23 @@
 
 import SwiftUI
 
-struct QuickFilterCardIconView: View {
+struct CardIconView: View {
     
     var color: Color
     var image: Image
+    var multipler: CGFloat = 2
     
     var body: some View {
         image
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(height: 16)
-            .padding(8)
+            .frame(height: 8 * multipler)
+            .padding(4 * multipler)
             .background(color)
             .clipShape(.circle)
     }
 }
 
 #Preview {
-    QuickFilterCardIconView(color: Color.darkGreen, image: Image("StarIcon"))
+    CardIconView(color: Color.darkGreen, image: Image("StarIcon"))
 }

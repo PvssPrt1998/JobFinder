@@ -22,6 +22,10 @@ struct CodeDigitTextField: View {
                 let filtered = newValue.wrappedValue.filter { Set("0123456789").contains($0) }
                 if filtered != newValue.wrappedValue {
                     self.digit.wrappedValue = filtered
+                } else {
+                    if newValue.wrappedValue != "" {
+                        self.focuseNextField()
+                    }
                 }
             })
             .focused(focused, equals: field)
@@ -29,6 +33,16 @@ struct CodeDigitTextField: View {
             .padding(14)
             .background(Color.secondaryBackgroundColor)
             .clipShape(.rect(cornerRadius: 8))
+    }
+    
+    private func focuseNextField() {
+        switch focused.wrappedValue {
+            case .first: focused.wrappedValue = .second
+            case .second: focused.wrappedValue = .third
+            case .third: focused.wrappedValue = .fourth
+            case .fourth: focused.wrappedValue = .none
+            case .none: break
+        }
     }
 }
 

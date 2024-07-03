@@ -7,12 +7,6 @@
 
 import Foundation
 
-class Address: Codable {
+struct Address: Codable {
     let town, street, house: String
-
-    init(town: String, street: String, house: String) {
-        self.town = town
-        self.street = street
-        self.house = house
-    }
 }

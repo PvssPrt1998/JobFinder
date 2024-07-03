@@ -10,7 +10,7 @@ import SwiftUI
 struct SignInContentView: View {
     
     @ObservedObject var signInCoordinator: SignInCoordinator
-    
+
     var body: some View {
         NavigationStack(path: $signInCoordinator.router.path) {
             signInCoordinator.build()
@@ -18,9 +18,11 @@ struct SignInContentView: View {
                     coordinator.build()
                 }
         }
+        .padding(.bottom, UITabBarController().height)
     }
 }
 
 #Preview {
     SignInContentView(signInCoordinator: SignInCoordinator(viewModelFactory: ViewModelFactory()))
 }
+

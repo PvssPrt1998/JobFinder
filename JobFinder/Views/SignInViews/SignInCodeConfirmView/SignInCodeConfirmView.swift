@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct SignInCodeConfirmView: View {
-    
-    @State var digit: String = ""
+
     @ObservedObject var viewModel: SignInCodeConfirmViewModel
+    
+    enum Field: Hashable, CaseIterable {
+        case first
+        case second
+        case third
+        case fourth
+    }
+    
+    @FocusState var focused: Field?
     
     var body: some View {
         VStack(spacing: 16) {
@@ -26,7 +34,14 @@ struct SignInCodeConfirmView: View {
                     .fontWeight(.medium)
                 Spacer()
             }
-            CodeTextField()
+            HStack(spacing: 8) {
+                CodeDigitTextField(digit: $viewModel.first, focused: $focused, field: .first)
+                CodeDigitTextField(digit: $viewModel.second, focused: $focused, field: .second)
+                CodeDigitTextField(digit: $viewModel.third, focused: $focused, field: .third)
+                CodeDigitTextField(digit: $viewModel.fourth, focused: $focused, field: .fourth)
+                Spacer()
+            }
+            .onAppear(perform: focusFirstField)
             BlueButton(
                 action: {
                     viewModel.buttonAction()
@@ -34,10 +49,25 @@ struct SignInCodeConfirmView: View {
                 title: "Подтвердить",
                 fontSize: 16,
                 fontWeight: .semibold,
-                height: 48
+                height: 48,
+                disabled: viewModel.buttonDisabled
             )
         }
         .padding(.horizontal, 14)
+    }
+    
+    private func focusFirstField() {
+        focused = Field.allCases.first
+    }
+    
+    private func focuseNextField() {
+        switch focused {
+            case .first: focused = .second
+            case .second: focused = .third
+            case .third: focused = .fourth
+            case .fourth: focused = .none
+            case .none: break
+        }
     }
 }
 

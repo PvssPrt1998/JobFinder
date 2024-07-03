@@ -8,33 +8,39 @@
 import SwiftUI
 
 struct VacanciesView: View {
+    
+    @ObservedObject var viewModel: VacanciesViewModel
+    
     var body: some View {
-        VStack(spacing: 16) {
-//            SearchBarView()
-//                .padding(.horizontal, 16)
-//            Spacer().frame(height: 16)
-//            RecomendationsView()
-//            Group {
-//                HStack {
-//                    Text("Вакансии для вас")
-//                        .font(.system(size: 20))
-//                        .fontWeight(.semibold)
-//                    Spacer()
-//                }
-//                ScrollView {
-//                    VStack {
-//                        VacancyCardView()
-//                        VacancyCardView()
-//                        VacancyCardView()
-//                    }
-//                }
-//                BlueButton(title: "Еще 143 вакансии", fontSize: 16, fontWeight: .semibold, height: 48)
-//            }
-//            .padding(.horizontal, 16)
+        VStack {
+            SearchBarView()
+                .padding(16)
+            Spacer().frame(height: 16)
+            if !viewModel.detailedMode {
+                OffersView(viewModel: viewModel.recomendationsViewModel)
+                    .padding(.vertical, 16)
+                HStack {
+                    Text("Вакансии для вас")
+                        .font(.system(size: 20))
+                        .fontWeight(.semibold)
+                    Spacer()
+                }.padding(.horizontal, 16)
+            } else {
+                HStack {
+                    Text(viewModel.vacanciesCountLine())
+                        .font(.system(size: 14))
+                    Spacer()
+                    FilterVacanciesView()
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 6)
+            }
+            VacanciesScrollView(viewModel: viewModel.vacanciesScrollViewModel)
+                .padding(.horizontal, 16)
         }
     }
 }
 
 #Preview {
-    VacanciesView()
+    VacanciesView(viewModel: ViewModelFactory().makeVacanciesViewModel())
 }

@@ -9,21 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject var authController: AuthenticationController
-    @ObservedObject var coordinator: MainCoordinator
+    @ObservedObject var viewModel: ContentViewModel
+    var viewModelFactory: ViewModelFactory
     
     var body: some View {
         ZStack {
-            coordinator.build(.tabBarPage)
-            //TabBarView(coordinator: TabBarViewCoordinator(), authController: authController)
-            if !authController.authenticated {
-                SignInView(viewModel: SignInViewModel(authenticationController: authController))
-                    .padding(16)
+            TabBarView(coordinator: TabBarViewCoordinator(viewModelFactory: viewModelFactory), viewModel: viewModelFactory.makeTabBarViewModel())
+            if !viewModel.authenticated {
+                SignInContentView(signInCoordinator: SignInCoordinator(viewModelFactory: viewModelFactory))
             }
         }
     }
 }
 
 #Preview {
-    ContentView(authController: AuthenticationController(), coordinator: MainCoordinator())
+    ContentView(viewModel: ViewModelFactory().makeContentViewModel(), viewModelFactory: ViewModelFactory())
 }

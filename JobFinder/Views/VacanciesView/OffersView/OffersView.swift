@@ -7,28 +7,15 @@
 
 import SwiftUI
 
-struct RecomendationsView: View {
+struct OffersView: View {
     
-    var viewModel: RecomendationsViewModel
+    var viewModel: OffersViewModel
     
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack {
-                QuickFilterCard(
-                    icon: PointerIconVIew(),
-                    text: "Вакансии рядом с вами"
-                )
-                QuickFilterCard(
-                    icon: StarIconView(),
-                    text: "Поднять резюме в поиске"
-                )
-                QuickFilterCard(
-                    icon: NoteIconView(),
-                    text: "Временная работа и подработка"
-                )
-                
                 ForEach(viewModel.offers, id: \.self) { offer in
-                    QuickFilterCard(icon: <#T##View#>, text: <#T##String#>)
+                    OfferCard(iconType: assignIconType(by: offer.title), text: offer.title, buttonTitle: offer.button?.text)
                 }
             }
             .frame(height: 120)
@@ -36,8 +23,17 @@ struct RecomendationsView: View {
         }
         .scrollIndicators(.never)
     }
+    
+    private func assignIconType(by text: String) -> OfferCard.IconType? {
+        switch text {
+        case "Вакансии рядом с вами": .pointer
+        case "Поднять резюме в поиске": .star
+        case "Временная работа или подработка": .note
+        default: nil
+        }
+    }
 }
 
 #Preview {
-    RecomendationsView(viewModel: RecomendationsViewModel(vacanciesController: VacanciesController()))
+    OffersView(viewModel: OffersViewModel(vacanciesController: VacanciesController()))
 }

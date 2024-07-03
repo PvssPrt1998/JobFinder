@@ -12,20 +12,33 @@ final class TabBarViewCoordinator: ObservableObject {
     
     enum MainPages {
         case vacanciesPage
-        case favouritePage
+        case favoritePage
         case responsesPage
         case messagesPage
         case profilePage
     }
     
-    @ViewBuilder func build(_ page: MainPages, authenticated: Bool) -> some View {
-        if authenticated {
+    var viewModelFactory: ViewModelFactory
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(viewModelFactory: ViewModelFactory) {
+        self.viewModelFactory = viewModelFactory
+        
+        viewModelFactory.authenticationController.$authenticated.sink { _ in
+            self.objectWillChange.send()
+        }
+        .store(in: &cancellables)
+    }
+    
+    @ViewBuilder func build(_ page: MainPages) -> some View {
+        if viewModelFactory.authenticationController.authenticated {
             switch page {
-            case .vacanciesPage: VacanciesView()
-            case .favouritePage: FavouriteView()
-            case .responsesPage: ResponsesView()
-            case .messagesPage: MessagesView()
-            case .profilePage: ProfileView()
+                case .vacanciesPage: VacanciesContentView(vacanciesViewCoordinator: VacanciesViewCoordinator(viewModelFactory: viewModelFactory))
+                case .favoritePage:  FavoriteContentView(favoriteViewCoordinator: FavoriteViewCoordinator(viewModelFactory: viewModelFactory))
+                case .responsesPage: ResponsesView()
+                case .messagesPage: MessagesView()
+                case .profilePage: ProfileView()
             }
         } else {
             EmptyScreenForTabView()

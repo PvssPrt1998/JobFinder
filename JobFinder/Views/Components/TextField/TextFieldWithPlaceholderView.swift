@@ -13,7 +13,7 @@ struct TextFieldWithPlaceholderView<V: View>: View {
     @FocusState var fieldFocused: Bool
     
     var clearButtonAction: (() -> Void)?
-    var errorMode: Bool = false
+    var borderColor: Color?
     var height: CGFloat
     var placeholderView: V
     
@@ -22,6 +22,7 @@ struct TextFieldWithPlaceholderView<V: View>: View {
             TextField("", text: text)
                 .font(.system(size: 14))
                 .focused($fieldFocused)
+                .autocorrectionDisabled()
                 .lineLimit(1)
                 .frame(height: 28)
                 .background(content: {
@@ -42,7 +43,7 @@ struct TextFieldWithPlaceholderView<V: View>: View {
         .background(
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(errorMode ? .red : Color.textFieldColor)
+                    .fill( borderColor != nil ? borderColor! : Color.textFieldColor )
                 RoundedRectangle(cornerRadius: 8)
                     .inset(by: 2)
                     .fill(Color.textFieldColor)

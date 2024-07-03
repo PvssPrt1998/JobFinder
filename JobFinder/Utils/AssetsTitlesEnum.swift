@@ -8,6 +8,10 @@
 import Foundation
 
 enum AssetsTitles: String {
+    case ShareIcon
+    case Map
+    case WhiteProfileIcon
+    case EyeIcon
     case StarIcon
     case PointerIcon
     case NoteIcon

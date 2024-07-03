@@ -6,39 +6,40 @@
 //
 
 import SwiftUI
+import Combine
 
-final class SignInCoordinator: ObservableObject, Hashable {
+final class SignInCoordinator: ObservableObject {
     
-    private var id: UUID
-    
-    enum Pages {
-        case signIn
-        case codeConfirm
-    }
-    
-    //@Published var router: NavigationRouter
+    @Published var router: NavigationRouter = NavigationRouter(path: NavigationPath())
     
     var viewModelFactory: ViewModelFactory
     
+    private var routerAnyCancellable: AnyCancellable?
+    private var viewCancellable: AnyCancellable?
+    
     init(viewModelFactory: ViewModelFactory) {
-        self.id = UUID()
         self.viewModelFactory = viewModelFactory
+        
+        routerAnyCancellable = self.router.objectWillChange.sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
     }
     
     @ViewBuilder func build() -> some View {
-        
+        signInView()
     }
     
-    private func codeConfirmView() {
-        
+    private func signInView() -> some View {
+        let signInViewModel = viewModelFactory.makeSignInViewModel()
+        viewCancellable = signInViewModel.signInAsEmployeeViewModel.didClickButton
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] didClick in
+                self?.makeSignInCodeConfirmCoordinator()
+            }
+        return SignInView(viewModel: signInViewModel)
     }
     
-    // MARK: Required methods for class to conform to Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    static func == (lhs: SignInCoordinator, rhs: SignInCoordinator) -> Bool {
-        return lhs.id == rhs.id
+    private func makeSignInCodeConfirmCoordinator() {
+        router.push(SignInCodeConfirmCoordinator(viewModelFactory: viewModelFactory))
     }
 }

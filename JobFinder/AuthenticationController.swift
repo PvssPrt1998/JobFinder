@@ -9,4 +9,5 @@ import Foundation
 
 final class AuthenticationController: ObservableObject {
     @Published var authenticated = false
+    var email: String?
 }

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class RecomendationsViewModel: ObservableObject {
+final class OffersViewModel: ObservableObject {
     
     var vacanciesController: VacanciesController
     

@@ -10,6 +10,7 @@ import SwiftUI
 struct SignInAsEmployeeView: View {
     
     @ObservedObject var viewModel: SignInAsEmployeeViewModel
+    var focused: FocusState<Bool>.Binding
     
     var body: some View {
         VStack(spacing: 16) {
@@ -26,6 +27,11 @@ struct SignInAsEmployeeView: View {
                                              borderColor: viewModel.borderColor,
                                              height: 40,
                                              placeholderView: EmailTextFieldPlaceholderView())
+                .focused(focused)
+                .autocapitalization(.none)
+                .keyboardType(.emailAddress)
+                .onTapGesture { }
+                
                 if viewModel.showErrorCaption {
                     HStack {
                         Text("Вы ввели неверный e-mail")
@@ -62,6 +68,11 @@ struct SignInAsEmployeeView: View {
     }
 }
 
-#Preview {
-    SignInAsEmployeeView(viewModel: SignInAsEmployeeViewModel(authenticationController: AuthenticationController()))
+struct SignInAsEmployeeView_Preview: PreviewProvider {
+    @FocusState static var focused: Bool
+    
+    static var previews: some View {
+        SignInAsEmployeeView(viewModel: SignInAsEmployeeViewModel(authenticationController: AuthenticationController()), focused: $focused)
+    }
 }
+

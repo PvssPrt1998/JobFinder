@@ -9,28 +9,42 @@ import SwiftUI
 
 struct SignInView: View {
     
-    @StateObject var viewModel: SignInViewModel
+    var viewModel: SignInViewModel
+    @FocusState var focused: Bool
     
     var body: some View {
-        ZStack {
-            VStack() {
-                HStack {
-                    Text("Вход в личный кабинет")
-                        .font(.system(size: 20))
-                        .fontWeight(.semibold)
+        GeometryReader { geometry in
+            ZStack {
+                Rectangle()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .opacity(0.001)   // <--- important
+                    .layoutPriority(-1)
+                    .onTapGesture {
+                        focused = false
+                    }
+                VStack() {
+                    Spacer().frame(height: UITabBarController().height)
+                    ScreenTitle(text: "Вход в личный кабинет")
                     Spacer()
                 }
-                Spacer()
+                VStack(spacing: 22) {
+                    SignInAsEmployeeView(viewModel: viewModel.signInAsEmployeeViewModel, focused: $focused)
+                    SignInAsEmployerView()
+                }
             }
-            VStack(spacing: 22) {
-                SignInAsEmployeeView(viewModel: viewModel.signInAsEmployeeViewModel)
-                SignInAsEmployerView()
+            .padding(.horizontal, 16)
+            .onTapGesture {
+                focused = false
             }
         }
-        .padding(.horizontal, 16)
+        
     }
 }
 
-#Preview {
-    SignInView(viewModel: SignInViewModel(authenticationController: AuthenticationController()))
+struct SignInView_Preview: PreviewProvider {
+    @FocusState static var focused: Bool
+    
+    static var previews: some View {
+        SignInView(viewModel: SignInViewModel(authenticationController: AuthenticationController()))
+    }
 }

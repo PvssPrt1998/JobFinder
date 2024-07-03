@@ -7,7 +7,8 @@
 
 import Foundation
 
-class Offer: Codable {
+struct Offer: Codable, Hashable {
+    
     let id: String?
     let title: String
     let link: String
@@ -19,11 +20,12 @@ class Offer: Codable {
         case link
         case button
     }
-
-    init(id: String?, title: String, link: String, button: ButtonData?) {
-        self.id = id
-        self.title = title
-        self.link = link
-        self.button = button
+    
+    static func == (lhs: Offer, rhs: Offer) -> Bool {
+        return lhs.title == rhs.title
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

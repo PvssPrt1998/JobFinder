@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct JobFinderApp: App {
+    
+    let viewModelFactory = ViewModelFactory()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView(authController: AuthenticationController())
+            ContentView(viewModel: viewModelFactory.makeContentViewModel(),
+                        viewModelFactory: viewModelFactory)
                 .preferredColorScheme(.dark)
         }
     }

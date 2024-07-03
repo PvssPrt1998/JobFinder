@@ -10,48 +10,46 @@ import SwiftUI
 struct TabBarView: View {
     
     @ObservedObject var coordinator: TabBarViewCoordinator
-    @ObservedObject var authController: AuthenticationController
-    
-    @State var selection = 0
+    @ObservedObject var viewModel: TabBarViewModel
     
     var body: some View {
-        TabView(selection: $selection) {
-            coordinator.build(.vacanciesPage, authenticated: authController.authenticated)
+        TabView(selection: $viewModel.selection) {
+            coordinator.build(.vacanciesPage)
                 .tabItem {
                     VStack {
-                        image(.search, selection: selection)
+                        image(.search, selection: viewModel.selection)
                         Text("Поиск")
                     }
                 }
                 .tag(0)
-            coordinator.build(.favouritePage, authenticated: authController.authenticated)
+            coordinator.build(.favoritePage)
                 .tabItem {
                     VStack {
-                        image(.heart, selection: selection)
+                        image(.heart, selection: viewModel.selection)
                         Text("Избранное")
                     }
                 }
                 .tag(1)
-            coordinator.build(.responsesPage, authenticated: authController.authenticated)
+            coordinator.build(.responsesPage)
                 .tabItem {
                     VStack {
-                        image(.response, selection: selection)
+                        image(.response, selection: viewModel.selection)
                         Text("Отклики")
                     }
                 }
                 .tag(2)
-            coordinator.build(.messagesPage, authenticated: authController.authenticated)
+            coordinator.build(.messagesPage)
                 .tabItem {
                     VStack {
-                        image(.message, selection: selection)
+                        image(.message, selection: viewModel.selection)
                         Text("Сообщения")
                     }
                 }
                 .tag(3)
-            coordinator.build(.profilePage, authenticated: authController.authenticated)
+            coordinator.build(.profilePage)
                 .tabItem {
                     VStack {
-                        image(.profile, selection: selection)
+                        image(.profile, selection: viewModel.selection)
                         Text("Профиль")
                     }
                 }
@@ -71,7 +69,7 @@ struct TabBarView: View {
 }
 
 #Preview {
-    TabBarView(coordinator: TabBarViewCoordinator(), authController: AuthenticationController())
+    TabBarView(coordinator: TabBarViewCoordinator(viewModelFactory: ViewModelFactory()), viewModel: ViewModelFactory().makeTabBarViewModel())
 }
 
 
