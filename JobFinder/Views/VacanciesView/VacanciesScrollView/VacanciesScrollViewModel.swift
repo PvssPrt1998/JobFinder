@@ -24,9 +24,9 @@ final class VacanciesScrollViewModel: ObservableObject {
         
         vacanciesController.$vacancies.sink { [weak self] vacancies in
             self?.vacancies = vacancies
+            self?.reduceArrayIfNeeded()
         }
         .store(in: &cancellables)
-        reduceArray()
     }
     
     func buttonAction() {
@@ -46,9 +46,11 @@ final class VacanciesScrollViewModel: ObservableObject {
         "Ещё " + vacanciesController.vacanciesCountLine(vacanciesController.vacancies.count - 3)
     }
     
-    private func reduceArray() {
-        while vacancies.count > 3 {
-            vacancies.removeLast()
+    private func reduceArrayIfNeeded() {
+        if !detailedMode {
+            while vacancies.count > 3 {
+                vacancies.removeLast()
+            }
         }
     }
     
