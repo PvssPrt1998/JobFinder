@@ -10,9 +10,10 @@ import Combine
 
 final class VacanciesViewModel: ObservableObject {
     
-    var vacanciesController: VacanciesController
+    @Published var vacanciesController: VacanciesController
     
     @Published var detailedMode = false
+    @Published var showLoadingView = true
     
     var recomendationsViewModel: OffersViewModel
     var vacanciesScrollViewModel: VacanciesScrollViewModel
@@ -27,6 +28,11 @@ final class VacanciesViewModel: ObservableObject {
             self?.detailedMode = detailed
         }
         .store(in: &cancellables)
+        
+        self.vacanciesController.$dataLoaded.sink { [weak self] loaded in
+                self?.showLoadingView = !loaded
+            }
+            .store(in: &cancellables)
     }
     
     func vacanciesCountLine() -> String {

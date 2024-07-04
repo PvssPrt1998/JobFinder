@@ -17,8 +17,14 @@ struct VacanciesView: View {
                 .padding(16)
             Spacer().frame(height: 16)
             if !viewModel.detailedMode {
-                OffersView(viewModel: viewModel.recomendationsViewModel)
-                    .padding(.vertical, 16)
+                if !viewModel.showLoadingView {
+                    OffersView(viewModel: viewModel.recomendationsViewModel)
+                        .padding(.vertical, 16)
+                } else {
+                    LoadingView(animationIsOn: $viewModel.showLoadingView)
+                        .frame(height: 120)
+                }
+                
                 HStack {
                     Text("Вакансии для вас")
                         .font(.system(size: 20))
@@ -35,7 +41,11 @@ struct VacanciesView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 6)
             }
-            VacanciesScrollView(viewModel: viewModel.vacanciesScrollViewModel)
+            if viewModel.showLoadingView {
+                LoadingView(animationIsOn: $viewModel.showLoadingView)
+            } else {
+                VacanciesScrollView(viewModel: viewModel.vacanciesScrollViewModel)
+            }
         }
     }
 }

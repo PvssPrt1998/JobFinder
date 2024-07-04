@@ -11,24 +11,35 @@ final class VacanciesController: ObservableObject {
     
     @Published var vacancies: Array<Vacancy> = []
     @Published var offers: Array<Offer> = []
+    @Published var dataLoaded: Bool = false
     
     let dataManager: DataManager
     
     init() {
         self.dataManager = DataManager()
-        let storedVacancies = try? dataManager.localStorage.fetchVacancies()
-        if storedVacancies != nil {
-            vacancies = storedVacancies!
-        }
-        guard let model = dataManager.fetchData() else { fatalError("Cannot fetch data from mock JSON") }
-        offers = model.offers
-        model.vacancies.forEach { vacancy in
-            if !vacancies.contains(where: { $0.id == vacancy.id }) {
-                if vacancy.isFavorite {
-                    dataManager.localStorage.addVacancy(vacancy: vacancy)
-                }
-                vacancies.append(vacancy)
+    }
+    
+    func loadData() {
+        DispatchQueue.global(qos: .utility).async { [weak self] in
+            guard let self = self else { return }
+            let storedVacancies = try? dataManager.localStorage.fetchVacancies()
+            if storedVacancies != nil {
+                vacancies = storedVacancies!
             }
+            guard let model = dataManager.fetchData() else { fatalError("Cannot fetch data from mock JSON") }
+            offers = model.offers
+            model.vacancies.forEach { vacancy in
+                if !self.vacancies.contains(where: { $0.id == vacancy.id }) {
+                    if vacancy.isFavorite {
+                        self.dataManager.localStorage.addVacancy(vacancy: vacancy)
+                    }
+                    self.vacancies.append(vacancy)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.dataLoaded = true
+              }
         }
     }
     

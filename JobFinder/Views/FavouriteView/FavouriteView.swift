@@ -22,13 +22,18 @@ struct FavoriteView: View {
                     .foregroundStyle(.gray)
                 Spacer()
             }
-            ScrollView {
-                VStack {
-                    ForEach(viewModel.vacancies, id: \.self) { vacancy in
-                        VacancyCardView(vacancy: vacancy) {
-                            viewModel.favoriteToggle(vacancyId: vacancy.id)
-                        } cardTapAction: {
-                            viewModel.cardTapAction(vacancyId: vacancy.id)
+            if viewModel.showLoadingView {
+                LoadingView(animationIsOn: $viewModel.showLoadingView)
+            } else {
+                ScrollView {
+                    VStack {
+                        
+                        ForEach(viewModel.vacancies, id: \.self) { vacancy in
+                            VacancyCardView(vacancy: vacancy) {
+                                viewModel.favoriteToggle(vacancyId: vacancy.id)
+                            } cardTapAction: {
+                                viewModel.cardTapAction(vacancyId: vacancy.id)
+                            }
                         }
                     }
                 }

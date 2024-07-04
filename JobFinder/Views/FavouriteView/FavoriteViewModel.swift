@@ -13,6 +13,7 @@ final class FavoriteViewModel: ObservableObject {
     var vacanciesController: VacanciesController
     
     @Published var vacancies: [Vacancy] = []
+    @Published var showLoadingView = true
     
     let didTapCard = PassthroughSubject<String, Never>()
     
@@ -23,6 +24,11 @@ final class FavoriteViewModel: ObservableObject {
         
         vacanciesController.$vacancies.sink { [weak self] vacancies in
             self?.vacancies = vacancies.filter { $0.isFavorite }
+        }
+        .store(in: &cancellables)
+        
+        vacanciesController.$dataLoaded.sink { [weak self] loaded in
+            self?.showLoadingView = !loaded
         }
         .store(in: &cancellables)
     }

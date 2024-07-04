@@ -54,6 +54,7 @@
 		99C49BB52C35770600EB4497 /* VacancyCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49BAF2C35770600EB4497 /* VacancyCoreData+CoreDataProperties.swift */; };
 		99C49BB92C357DF600EB4497 /* SalaryCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49BB72C357DF600EB4497 /* SalaryCoreData+CoreDataClass.swift */; };
 		99C49BBA2C357DF600EB4497 /* SalaryCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49BB82C357DF600EB4497 /* SalaryCoreData+CoreDataProperties.swift */; };
+		99C49BBC2C3607F400EB4497 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49BBB2C3607F400EB4497 /* LoadingView.swift */; };
 		99E5E3962BD2BCB5008F363A /* JobFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E5E3952BD2BCB5008F363A /* JobFinderApp.swift */; };
 		99E5E3982BD2BCB5008F363A /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E5E3972BD2BCB5008F363A /* TabBarView.swift */; };
 		99E5E39A2BD2BCB8008F363A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99E5E3992BD2BCB8008F363A /* Assets.xcassets */; };
@@ -165,6 +166,7 @@
 		99C49BAF2C35770600EB4497 /* VacancyCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VacancyCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		99C49BB72C357DF600EB4497 /* SalaryCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SalaryCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		99C49BB82C357DF600EB4497 /* SalaryCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SalaryCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		99C49BBB2C3607F400EB4497 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		99E5E3922BD2BCB5008F363A /* JobFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99E5E3952BD2BCB5008F363A /* JobFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFinderApp.swift; sourceTree = "<group>"; };
 		99E5E3972BD2BCB5008F363A /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -289,10 +291,10 @@
 			isa = PBXGroup;
 			children = (
 				99C49B682C31A03900EB4497 /* DataManager.swift */,
-				99C49BB62C35771100EB4497 /* CoreDataSubclasses */,
 				99C49B942C35711200EB4497 /* LocalStorage.swift */,
 				99C49B992C35718000EB4497 /* CoreDataStack.swift */,
 				99C49B9B2C35722F00EB4497 /* Vacancy.xcdatamodeld */,
+				99C49BB62C35771100EB4497 /* CoreDataSubclasses */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -442,6 +444,7 @@
 		99E5E3C12BD2DEF6008F363A /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				99C49BBB2C3607F400EB4497 /* LoadingView.swift */,
 				99E5E3C62BD55F9A008F363A /* TextField */,
 				99E5E3C22BD2DF17008F363A /* BlueButton.swift */,
 				99E5E3CD2BD5696F008F363A /* GreenButton.swift */,
@@ -738,6 +741,7 @@
 				99C49BB32C35770600EB4497 /* ExperienceCoreData+CoreDataProperties.swift in Sources */,
 				99C49BB42C35770600EB4497 /* VacancyCoreData+CoreDataClass.swift in Sources */,
 				99C49BB52C35770600EB4497 /* VacancyCoreData+CoreDataProperties.swift in Sources */,
+				99C49BBC2C3607F400EB4497 /* LoadingView.swift in Sources */,
 				99871BBA2BDA97DC00F626A4 /* data.json in Sources */,
 				99871BD02BE7C9EA00F626A4 /* Address.swift in Sources */,
 				99F6B5A02C286E46002E8CF4 /* Router.swift in Sources */,

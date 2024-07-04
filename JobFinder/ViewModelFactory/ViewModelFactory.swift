@@ -6,18 +6,27 @@
 //
 
 import Foundation
+import Combine
 
 final class ViewModelFactory {
     
     let authenticationController = AuthenticationController()
-    let vacanciesController = VacanciesController()
+    var vacanciesController = VacanciesController()
     
     var vacanciesViewModel: VacanciesViewModel?
     var favoriteViewModel: FavoriteViewModel?
     
+    private var authenticationControllerSubscribe: AnyCancellable?
+    
     init() {
-        self.vacanciesViewModel = VacanciesViewModel(vacanciesController: vacanciesController)
-        self.favoriteViewModel = FavoriteViewModel(vacanciesController: vacanciesController)
+        vacanciesViewModel = VacanciesViewModel(vacanciesController: vacanciesController)
+        favoriteViewModel = FavoriteViewModel(vacanciesController: vacanciesController)
+        authenticationControllerSubscribe = authenticationController.$authenticated.sink { [weak self] authenticated in
+            guard let self = self else { return }
+            if authenticated {
+                vacanciesController.loadData()
+            }
+        }
     }
     
     func makeContentViewModel() -> ContentViewModel {
