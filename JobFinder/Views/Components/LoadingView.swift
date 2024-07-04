@@ -14,26 +14,26 @@ struct LoadingView: View {
     @State var firstHeight: CGFloat = 0
     @State var secondHeight: CGFloat = 0
     @State var thirdHeight: CGFloat = 0
-    
-//    var repeatingAnimation: Animation {
-//        Animation
-//            .linear(duration: 1)
-//            .repeatForever(autoreverses: false)
-//            .repeatForever()
-//    }
+    @State var fourthHeight: CGFloat = 0
     
     var body: some View {
         VStack {
             Spacer()
             HStack(spacing: 8) {
-                VStack(spacing: 0) {
+                ZStack {//скрытый элемент под первым столбиком чтобы сделать задержку анимации
                     Rectangle()
-                        .frame(width: 20, height: firstHeight)
-                        .foregroundStyle(Color.secondaryBackgroundColor)
-                    Rectangle()
-                        .frame(width: 20, height: firstHeight)
+                        .frame(width: 20, height: fourthHeight)
                         .foregroundStyle(Color.clear)
+                    VStack(spacing: 0) {
+                        Rectangle()
+                            .frame(width: 20, height: firstHeight)
+                            .foregroundStyle(Color.secondaryBackgroundColor)
+                        Rectangle()
+                            .frame(width: 20, height: firstHeight)
+                            .foregroundStyle(Color.clear)
+                    }
                 }
+                
                 VStack(spacing: 0) {
                     Rectangle()
                         .frame(width: 20, height: secondHeight)
@@ -55,20 +55,6 @@ struct LoadingView: View {
         }
         .onAppear() {
             firstAnimation()
-//            withAnimation(self.repeatingAnimation) {
-//                self.firstHeight = 40
-//
-//            } completion: {
-//                <#code#>
-//            }
-//            withAnimation(self.repeatingAnimation.delay(0.5)) {
-//                self.secondHeight = 40
-//            }
-//            withAnimation(self.repeatingAnimation.delay(1)) {
-//                self.thirdHeight = 40
-//            }
-            
-            
         }
     }
     
@@ -92,19 +78,24 @@ struct LoadingView: View {
         withAnimation(.linear(duration: 0.5)) {
             thirdHeight = 40
         } completion: {
-            firstHeight = 0
-            secondHeight = 0
-            thirdHeight = 0
+            delayAnimation()
+        }
+    }
+    
+    private func delayAnimation() {
+        withAnimation(.linear(duration: 0.05)) {
+            fourthHeight = 40
+        } completion: {
             if animationIsOn {
+                firstHeight = 0
+                secondHeight = 0
+                thirdHeight = 0
+                fourthHeight = 0
                 firstAnimation()
             }
         }
     }
 }
-
-//#Preview {
-//    LoadingView()
-//}
 
 struct LoadingView_Preview: PreviewProvider {
     

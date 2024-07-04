@@ -39,7 +39,7 @@ final class VacanciesController: ObservableObject {
             
             DispatchQueue.main.async {
                 self.dataLoaded = true
-              }
+            }
         }
     }
     
